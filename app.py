@@ -25,16 +25,7 @@ if movie_input:
                 st.markdown(f"**{rec['title']}** ({rec['release_year']})")
                 st.image(f"https://image.tmdb.org/t/p/w200{rec['poster_path']}", width=120)
 
-                # Parse genre string and extract names
-                genres = []
-                try:
-                    genre_list = ast.literal_eval(rec["genres"])
-                    if isinstance(genre_list, list):
-                        genres = [g["name"] for g in genre_list if isinstance(g, dict) and "name" in g]
-                except (ValueError, SyntaxError):
-                    pass
-                genre_text = " / ".join(genres) if genres else "Unknown genre"
-                st.markdown(f"*Genre(s): {genre_text}*")
+                st.markdown(f"*Genre(s): {rec['genres']}*")
 
                 st.markdown(f"_{rec['overview']}_")
                 st.markdown("---")

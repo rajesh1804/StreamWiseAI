@@ -1,36 +1,3 @@
-# import numpy as np
-# from sklearn.metrics.pairwise import cosine_similarity
-
-# # Load saved data
-# DATA_PATH = "data/processed/movie_embeddings.npz"
-# data = np.load(DATA_PATH, allow_pickle=True)
-
-# embeddings = data["embeddings"]
-# titles = data["titles"]
-# movie_ids = data["movie_ids"]
-
-# # Helper: recommend similar movies
-# def get_similar_movies(query_title, top_k=5):
-#     query_title = query_title.lower()
-    
-#     # Find index of query movie
-#     try:
-#         index = [title.lower() for title in titles].index(query_title)
-#     except ValueError:
-#         print(f"❌ Movie not found: {query_title}")
-#         return []
-    
-#     query_vec = embeddings[index].reshape(1, -1)
-    
-#     # Compute cosine similarity
-#     similarities = cosine_similarity(query_vec, embeddings).flatten()
-#     similar_indices = similarities.argsort()[::-1][1:top_k+1]  # exclude itself
-
-#     results = [(titles[i], similarities[i]) for i in similar_indices]
-#     return results
-
-# scripts/recommender.py
-
 import difflib
 import numpy as np
 import pandas as pd
@@ -55,6 +22,7 @@ def recommend_movies(movie_title, movies_df, embeddings, top_k=5):
         return None
 
     matched_title = match[0]
+    print('match: ', match)
     idx = movies_df[movies_df["matched_title"] == matched_title].index[0]
 
     # Now instead of comparing embeddings[idx] vs others (which may be weak),
@@ -64,16 +32,15 @@ def recommend_movies(movie_title, movies_df, embeddings, top_k=5):
     query_vec = model.encode(query_text, convert_to_tensor=True)
 
     scores = util.cos_sim(query_vec, embeddings)[0].cpu().numpy()
-    top_indices = scores.argsort()[::-1][:top_k]
+    top_indices = scores.argsort()[::-1][:top_k+1]
 
     results = []
     for i in top_indices:
         row = movies_df.iloc[i]
-        genres_str = ", ".join([g["name"] for g in row["genres"]]) if isinstance(row["genres"], list) else row["genres"]
         poster_url = f"https://image.tmdb.org/t/p/w500{row['poster_path']}" if pd.notna(row["poster_path"]) else None
         results.append({
-            "title": row["Title"],
-            "genres": genres_str,
+            "title": row["CleanTitle"],
+            "genres": row['genres'],
             "overview": row["overview"],
             "poster_path": poster_url,
             "release_year": row["release_date"][:4] if pd.notna(row["release_date"]) else "Unknown",
