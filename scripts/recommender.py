@@ -22,7 +22,6 @@ def recommend_movies(movie_title, movies_df, embeddings, top_k=5):
         return None
 
     matched_title = match[0]
-    print('match: ', match)
     idx = movies_df[movies_df["matched_title"] == matched_title].index[0]
 
     # Now instead of comparing embeddings[idx] vs others (which may be weak),
@@ -44,7 +43,7 @@ def recommend_movies(movie_title, movies_df, embeddings, top_k=5):
             "overview": row["overview"],
             "poster_path": poster_url,
             "release_year": row["release_date"][:4] if pd.notna(row["release_date"]) else "Unknown",
-            "score": float(scores[i])
+            "similarity": float(scores[i])
         })
 
     return {
