@@ -16,10 +16,10 @@ pinned: false
 [![Deployment: Hugging Face Spaces](https://img.shields.io/badge/Deployed%20on-HuggingFace-orange?logo=huggingface)](https://huggingface.co/spaces/rajesh1804/StreamWiseAI)  
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-> 🎯 **StreamWiseAI** is a smart movie recommendation engine that combines semantic search with an AI-powered Retention Coach. Built to mimic the intelligence of Netflix-style recommender pipelines — but fully local, transparent, and recruiter-grade.
+> 🎯 **StreamWiseAI** is a smart movie recommendation engine that combines semantic search with an AI-powered Retention Coach. Built to mimic the intelligence of Netflix-style recommender pipelines — but fully local, transparent, and free of cost.
 
 🔗 **Live Demo**: [Try on Hugging Face Spaces](https://huggingface.co/spaces/rajesh1804/streamwiseai)  
-📄 **Medium Article**: _Coming soon_  
+📄 **Medium Article**: [Click here](https://rajesh1804.medium.com/streamwiseai-an-ai-powered-movie-recommender-with-a-retention-coach-agent-b9b54319805f)  
 📌 **Built by**: [Rajesh Marudhachalam](https://www.linkedin.com/in/rajesh1804/)
 
 ---
