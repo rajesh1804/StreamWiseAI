@@ -31,7 +31,7 @@ def recommend_movies(movie_title, movies_df, embeddings, top_k=5):
     query_vec = model.encode(query_text, convert_to_tensor=True)
 
     scores = util.cos_sim(query_vec, embeddings)[0].cpu().numpy()
-    top_indices = scores.argsort()[::-1][:top_k+1]
+    top_indices = scores.argsort()[::-1][:top_k]
 
     results = []
     for i in top_indices:

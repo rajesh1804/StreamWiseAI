@@ -1,6 +1,6 @@
 import streamlit as st
 from scripts.recommender import load_data, recommend_movies
-import ast
+from agent import generate_retention_tip
 
 st.set_page_config(page_title="StreamWiseAI", layout="wide")
 st.title("🎬 StreamWiseAI – Movie Recommender")
@@ -10,6 +10,7 @@ movies, embeddings = load_data()
 
 # Search input
 movie_input = st.text_input("Enter a movie you liked", placeholder="e.g. Toy Story")
+show_tip = st.checkbox("💡 Show retention insight from AI coach?", value=True)
 
 if movie_input:
     with st.spinner("Finding great recommendations..."):
@@ -18,7 +19,7 @@ if movie_input:
         if not recommendations:
             st.error("❌ Movie not found. Please try another title.")
         else:
-            st.subheader(f"📽️ Recommendations for **{recommendations['input_title']}**")
+            st.subheader(f"📽️ Recommendations for **{movie_input}**")
 
             cols = st.columns(2)
 
@@ -43,3 +44,13 @@ if movie_input:
                         st.markdown(f"_{short_overview}_")
 
                         st.markdown("---")
+
+            if show_tip:
+                with st.spinner("🧠 Generating retention insight..."):
+                    tip = generate_retention_tip(movie_input, recommendations["results"])
+                    if tip and not tip.startswith("⚠️"):
+                        st.markdown("### 💡 Retention Coach Tip")
+                        st.info(tip)
+                    else:
+                        st.warning("Couldn't generate tip at the moment.")
+
