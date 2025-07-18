@@ -219,7 +219,7 @@ Modern recommender systems go beyond just content — they understand context, p
 
 ---
 
-## 🧠 Tech Stack
+## 🛠️ Tech Stack
 
 | Layer            | Technology |
 |------------------|------------|
