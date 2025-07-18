@@ -78,18 +78,20 @@ Built to impress recruiters and mimic real-world production use cases, it featur
 🔍 <span style='color:#FFA500'><strong>Semantic Search</strong></span> — understands meaning, not just keywords  
 🧠 <span style='color:#00BFFF'><strong>AI Retention Coach</strong></span> — LLM agent gives viewing tips  
 🗂️ <span style='color:#32CD32'><strong>Watch History Memory</strong></span> — tracks user session dynamically  
-🚀 <span style='color:#FF69B4'><strong>Built for Showcase</strong></span> — Fast, deployable & recruiter-friendly  
+🚀 <span style='color:#FF69B4'><strong>Built for Showcase</strong></span> — Fast, deployable & free  
 
 ---
 
-<small><i>Tech stack: Sentence Transformers · Streamlit · OpenRouter LLM API · Fuzzy Matching · npz Vector Index</i></small>
+<small><i>Tech stack: Sentence Transformers · Streamlit · OpenRouter LLM API · Fuzzy Matching · Vector Index</i></small>
 """, unsafe_allow_html=True)
 
 
 if st.session_state["watch_history"]:
-    st.markdown("---")
-    with st.expander("👀 View your recently searched movies"):
+    st.divider()
+    with st.expander("📜 Recently Searched"):
+        st.markdown("👀 Here’s a list of your recent searches:")
         st.markdown("\n".join(f"- {title}" for title in st.session_state["watch_history"]))
+
 
 st.markdown("---")
 st.markdown(
